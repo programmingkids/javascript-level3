@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<script src="//cdn.jsdelivr.net/npm/phaser@3.21.0/dist/phaser.js"></script>
+<style>
+body {
+  margin: 0;
+}
+</style>
+<script>
+var mainScene = new Phaser.Scene("mainScene");
+
+mainScene.preload = function () {
+    // 画像の読み込み
+    this.load.image('map03', 'assets/images/map03.png');
+    this.load.image('enemy', 'assets/images/enemy03.png');
+    // スプライト画像の読み込み
+    this.load.spritesheet('player', 'assets/images/player2.png', { frameWidth: 32, frameHeight: 32 });
+};
+
+mainScene.create = function () {
+    // マップ画像の表示
+    var map01Group = this.add.group({
+        key: 'map03',
+        frameQuantity: 192
+    });
+    Phaser.Actions.GridAlign(map01Group.getChildren(), {
+        width: 16,
+        height: 12,
+        cellWidth: 50,
+        cellHeight: 50,
+        x: 25,
+        y: 25
+    });
+    
+    // スプライト画像の表示
+    this.player = this.add.sprite(400, 300, 'player');
+    // スプライト画像のサイズを1.5倍にする
+    this.player.setScale(1.5);
+    // 最初のフレームを0番にする
+    this.player.setFrame(0);
+    
+    // 正面を向く
+    this.anims.create({
+        key: 'turn',
+        frames: [ { key: 'player', frame: 0 } ],
+        frameRate: 20
+    });
+    // 左向きのアニメーション
+    this.anims.create({
+        key: 'left',
+        frames: this.anims.generateFrameNumbers('player', { start: 3, end: 5 }),
+        frameRate: 10,
+        repeat: -1
+    });
+    // 右向きのアニメーション
+    this.anims.create({
+        key: 'right',
+        frames: this.anims.generateFrameNumbers('player', { start: 6, end: 8 }),
+        frameRate: 10,
+        repeat: -1
+    });
+    // 上向きのアニメーション
+    this.anims.create({
+        key: 'up',
+        frames: this.anims.generateFrameNumbers('player', { start: 9, end: 11 }),
+        frameRate: 10,
+        repeat: -1
+    });
+    // 下向きのアニメーション
+    this.anims.create({
+        key: 'down',
+        frames: this.anims.generateFrameNumbers('player', { start: 0, end: 2 }),
+        frameRate: 10,
+        repeat: -1
+    });
+    
+    // 敵を表示する
+    this.enemy = this.add.image(0,0,'enemy').setOrigin(0,0);
+    // 敵の表示サイズの変更
+    this.enemy.setDisplaySize(100, 100);
+    // 敵の位置をランダムに配置する
+    this.enemy.setRandomPosition(0, 0, 800 - this.enemy.displayWidth, 600 - this.enemy.displayHeight);
+    
+    // 重なったときに上に表示される画像を指定する。大きい数値が手前に表示される
+    this.player.setDepth(1);
+    this.enemy.setDepth(0);
+};
+
+mainScene.update = function() {
+    var speed = 5;
+    var cursors = this.input.keyboard.createCursorKeys();
+    if(cursors.right.isDown) {
+        // 右に移動
+        this.player.x += speed;
+        // 右向きのアニメーション
+        this.player.anims.play('right', true);
+    } else if(cursors.left.isDown) {
+        // 左に移動
+        this.player.x -= speed;
+        // 左向きのアニメーション
+        this.player.anims.play('left', true);
+    } else if(cursors.up.isDown) {
+        // 上に移動
+        this.player.y -= speed;
+        // 上向きのアニメーション
+        this.player.anims.play('up', true);
+    } else if(cursors.down.isDown) {
+        // 下に移動
+        this.player.y += speed;
+        // 下向きのアニメーション
+        this.player.anims.play('down', true);
+    } else {
+        // キーを放すとアニメーション停止
+        this.player.anims.stop();
+        // キーを放すと正面を向く
+        //this.player.anims.play('turn', true);
+    }
+    
+    // 画像の中心点の座標を取り出す
+    var playerVector2 = this.player.getCenter();
+    var enemyVector2 = this.enemy.getCenter();
+    
+    // 画像の中心点の距離を計算して、距離が40以下なら重なると判定する
+    if(playerVector2.distance(enemyVector2) <= 40) {
+        alert("モンスターに会いました！");
+        // 現在のシーンをリスタートする
+        this.scene.restart();
+        return;
+    }
+};
+
+var config = {
+    type: Phaser.AUTO,
+    width: 800,
+    height: 600,
+    scene: [mainScene],
+};
+
+var game = new Phaser.Game(config);
+</script>
+</head>
+<body>
+</body>
+</html>

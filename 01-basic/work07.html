@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<script src="//cdn.jsdelivr.net/npm/phaser@3.21.0/dist/phaser.js"></script>
+<style>
+body {
+  margin: 0;
+}
+</style>
+<script>
+var mainScene = new Phaser.Scene("mainScene");
+
+mainScene.preload = function () {
+    // 画像の読み込み
+    this.load.image('sky', 'assets/images/sky.jpg');
+    this.load.image('robot', 'assets/images/robot.png');
+};
+
+mainScene.create = function () {
+    // 画像の表示
+    this.add.image(400,300,'sky');
+    // 画像を配置
+    this.robotImage = this.add.image(400,300,'robot');
+    // 画像のサイズを変更
+    this.robotImage.setDisplaySize(100,100);
+    
+    // 移動速度
+    this.dx = 5;
+};
+
+mainScene.update = function() {
+    // 右端に到達したら
+    if( this.robotImage.x > 750 ) {
+        this.dx = -this.dx;
+    }
+    // 左端に到達したら
+    if( this.robotImage.x < 50 ) {
+        this.dx = -this.dx;
+    }
+    // 移動処理
+    this.robotImage.x += this.dx;
+};
+
+var config = {
+    type: Phaser.AUTO,
+    width: 800,
+    height: 600,
+    scene: [mainScene],
+};
+
+var game = new Phaser.Game(config);
+</script>
+</head>
+<body>
+</body>
+</html>
