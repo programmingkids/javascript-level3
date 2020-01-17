@@ -39,7 +39,7 @@ mainScene.create = function () {
     this.player = this.add.sprite(400, 300, 'player');
     // スプライト画像のサイズを1.5倍にする
     this.player.setScale(1.5);
-    // 最初のフレームを4番にする
+    // 最初のフレームを0番にする
     this.player.setFrame(0);
     
     // 正面を向く
@@ -85,6 +85,7 @@ mainScene.create = function () {
     this.player.setDepth(1);
     this.treasure01.setDepth(0);
 
+    // プレイヤのHP
     this.hp = 50;
     
     // HPを文字で表示する
@@ -111,12 +112,12 @@ mainScene.create = function () {
     }
     
     // 終了処理フラグ
-    this.isTerminating = false;
+    this.isGameOver = false;
 };
 
 mainScene.update = function() {
     // 終了処理なら、処理を実行しない
-    if( this.isTerminating ) {
+    if( this.isGameOver ) {
         this.player.anims.stop();
         return;
     }
@@ -189,17 +190,11 @@ mainScene.update = function() {
 
 
 mainScene.gameOver = function() {
-    // 終了処理をTrueに設定する
-    this.isTerminating = true;
-
+    // ゲームオーバーにする
+    this.isGameOver = true;
+    
     // メインカメラをシェークする
     this.cameras.main.shake(1000);
-    // フェードアウトする
-    //this.cameras.main.fadeOut(1000);
-    // 点滅させる
-    //this.cameras.main.flash(1000);
-    // 赤色で点滅させる
-    //this.cameras.main.flash(1000, 255, 0, 0);
     
     // シェークの完了後に実行する
     this.cameras.main.on('camerashakecomplete', function(camera, effect) {
