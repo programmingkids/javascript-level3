@@ -134,12 +134,12 @@ mainScene.create = function () {
     }
     
     // 終了処理フラグ
-    this.isTerminating = false;
+    this.isGameOver = false;
 };
 
 mainScene.update = function() {
     // 終了処理なら、処理を実行しない
-    if( this.isTerminating ) {
+    if( this.isGameOver ) {
         this.player.anims.stop();
         return;
     }
@@ -169,23 +169,7 @@ mainScene.update = function() {
     } else {
         // キーを放すとアニメーション停止
         this.player.anims.stop();
-        // キーを放すと正面を向く
-        //this.player.anims.play('turn', true);
     }
-    
-    /*
-    // 画像の四角形での位置座標を取り出す
-    var playerRect = this.player.getBounds();
-    var treasure01Rect = this.treasure01.getBounds();
-    
-    // 四角形の重なりを判定する
-    if(Phaser.Geom.Intersects.RectangleToRectangle(playerRect, treasure01Rect)) {
-        alert("宝箱を見つけました");
-        // 現在のシーンをリスタートする
-        this.scene.restart();
-        return;
-    }
-    */
     
     // 画像の中心点の座標を取り出す
     var playerVector2 = this.player.getCenter();
@@ -227,16 +211,10 @@ mainScene.update = function() {
 
 mainScene.gameOver = function() {
     // 終了処理をTrueに設定する
-    this.isTerminating = true;
+    this.isGameOver = true;
 
     // メインカメラをシェークする
     this.cameras.main.shake(1000);
-    // フェードアウトする
-    //this.cameras.main.fadeOut(1000);
-    // 点滅させる
-    //this.cameras.main.flash(1000);
-    // 赤色で点滅させる
-    //this.cameras.main.flash(1000, 255, 0, 0);
     
     // シェークの完了後に実行する
     this.cameras.main.on('camerashakecomplete', function(camera, effect){
