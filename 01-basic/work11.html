@@ -118,25 +118,18 @@ mainScene.update = function() {
         this.player.anims.stop();
     }
     // 敵の移動処理
-    if(this.enemy.x > 700) {
-        this.enemySpeed = -this.enemySpeed;
-    }
-    if(this.enemy.x < 0) {
-        this.enemySpeed = -this.enemySpeed;
-    }
-    this.enemy.x += this.enemySpeed;
+    
+    
+    
     
     // 画像の中心点の座標を取り出す
-    var playerVector2 = this.player.getCenter();
-    var enemyVector2 = this.enemy.getCenter();
+    
+    
     
     // 画像の中心点の距離を計算して、距離が40以下なら重なると判定する
-    if(playerVector2.distance(enemyVector2) <= 40) {
-        alert("モンスターに会いました！");
-        // 現在のシーンをリスタートする
-        this.scene.restart();
-        return;
-    }
+    
+    
+    
 };
 
 var config = {

@@ -10,7 +10,7 @@ body {
 </style>
 <script>
 // 画像読込のシーン
-var loadScene = new Phaser.Scene("loadScene");
+
 
 loadScene.preload = function() {
     // 画像の読み込み
@@ -24,24 +24,24 @@ loadScene.preload = function() {
 
 loadScene.create = function() {
     // 読み込み完了後にstartSceneを起動
-    this.scene.start("startScene");
+    
 };
 
 // スタート画面のシーン
-var startScene = new Phaser.Scene("startScene");
+
 
 startScene.create = function () {
     this.startButtonImage = this.add.image(400, 300, 'startButton');
     this.startButtonImage.setDisplaySize(300,300);
     this.startButtonImage.setInteractive();
     // クリックされたらmainSceneを起動
-    this.startButtonImage.on('pointerdown',function(){
-        this.scene.start('mainScene');
-    },this);
+    
+    
+    
 };
 
 // ゲームのメイン画面
-var mainScene = new Phaser.Scene("mainScene");
+
 
 mainScene.create = function () {
     // マップ画像の表示
@@ -226,8 +226,7 @@ mainScene.gameOver = function() {
     this.cameras.main.on('camerafadeoutcomplete', function(camera, effect){
         // ゲームをリスタートする
         alert("Game Over");
-        //this.scene.restart();
-        this.scene.start('startScene');
+        
     }, this);
 };
 
@@ -235,7 +234,7 @@ var config = {
     type: Phaser.AUTO,
     width: 800,
     height: 600,
-    scene: [loadScene, startScene, mainScene],
+    
 };
 
 var game = new Phaser.Game(config);

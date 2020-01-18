@@ -27,20 +27,8 @@ mainScene.create = function () {
 };
 
 mainScene.update = function() {
-    var speed = 5;
-    var cursors = this.input.keyboard.createCursorKeys();
-    if(cursors.right.isDown) {
-        this.robotImage.x += speed;
-    }
-    if(cursors.left.isDown) {
-        this.robotImage.x -= speed;
-    }
-    if(cursors.up.isDown) {
-        this.robotImage.y -= speed;
-    }
-    if(cursors.down.isDown) {
-        this.robotImage.y += speed;
-    }
+    
+    
 };
 
 var config = {

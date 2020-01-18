@@ -78,12 +78,12 @@ mainScene.create = function () {
     });
     
     // 宝箱を表示する
-    this.treasure01 = this.add.image(0,0,'treasure01').setOrigin(0,0);
-    this.treasure01.setRandomPosition(0, 0, 800 - this.treasure01.width, 600 - this.treasure01.height);
+    
+    
     
     // 重なったときに上に表示される画像を指定する。大きい数値が手前に表示される
-    this.player.setDepth(1);
-    this.treasure01.setDepth(0);
+    
+    
 };
 
 mainScene.update = function() {
@@ -117,16 +117,12 @@ mainScene.update = function() {
     }
     
     // 画像の中心点の座標を取り出す
-    var playerVector2 = this.player.getCenter();
-    var treasure01Vector2 = this.treasure01.getCenter();
+    
+    
     
     // 画像の中心点の距離を計算して、距離が40以下なら重なると判定する
-    if(playerVector2.distance(treasure01Vector2) <= 40) {
-        alert("宝箱を見つけました");
-        // 現在のシーンをリスタートする
-        this.scene.restart();
-        return;
-    }
+    
+    
 };
 
 var config = {

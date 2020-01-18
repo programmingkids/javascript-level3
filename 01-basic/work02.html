@@ -13,45 +13,17 @@ var mainScene = new Phaser.Scene("mainScene");
 
 mainScene.preload = function () {
     // 画像の読み込み
-    this.load.image('sky', 'assets/images/sky.jpg');
-    this.load.image('robot', 'assets/images/robot.png');
+    
+    
 };
 
 mainScene.create = function () {
     // 画像の表示
-    this.add.image(400,300,'sky');
-    var robotImage = this.add.image(50,50,'robot');
+    
     
     // 表示する画像サイズの変更
-    robotImage.displayWidth  = 100;
-    robotImage.displayHeight = 100;
-    //robotImage.setDisplaySize(100,100);
     
-    // 表示する画像サイズの変更を倍率で行う １が元のサイズ、0.5で半分にする
-    // scaleXで横方向の倍率設定
-    // scaleYで縦方向の倍率設定
-    //robotImage.scaleX = 0.5;
-    //robotImage.scaleY = 0.5;
     
-    // 表示する画像サイズの変更を倍率で行う 1が元のサイズ、0.1で1/10のサイズに縮小する
-    //robotImage.setScale(0.1);
-    //console.log(robotImage);
-    
-    // 画像を20%のサイズに縮小 
-    //robotImage.setScale(0.2);
-    // 画像をX方向に反転
-    //robotImage.setFlipX(true);
-    // 画像をY方向に反転
-    //robotImage.setFlipY(true);
-    
-    // 画像のサイズ変更
-    //robotImage.setDisplaySize(100,100);
-    // 画像の位置の変更
-    //robotImage.setPosition(200,200);
-    
-    // 画像の中心ではなく、左上を起点とした座標で配置する
-    //var robotImage = this.add.image(0,0,'robot').setOrigin(0,0);
-    //robotImage.setDisplaySize(100,100);
 };
 
 var config = {

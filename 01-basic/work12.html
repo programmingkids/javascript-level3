@@ -86,30 +86,21 @@ mainScene.create = function () {
     this.treasure01.setDepth(0);
 
     // プレイヤーのHP
-    this.hp = 50;
+    
     
     // HPを文字で表示する
-    this.hpText = this.add.text(30, 20, 'HP: ' + this.hp, {
-        font: '28px Open Sans',
-        fill: '#ffffff'
-    });
+    
+    
     
     // 敵のグループを作成
-    this.enemies = this.add.group({
-        key: 'enemy01',
-        repeat: 5,
-    });
+    
+    
     
     // 敵のグループの画像を設定
-    var enemies = this.enemies.getChildren();
-    for( var i in enemies) {
-        var enemy = enemies[i];
-        enemy.setSize(50, 50);
-        enemy.setDisplaySize(50, 50);
-        enemy.setOrigin(0,0);
-        enemy.setRandomPosition(0, 0, 800 - enemy.width, 600 - enemy.height);
-        enemy.isHit = false;
-    }
+    
+    
+    
+    
 };
 
 mainScene.update = function() {
@@ -141,39 +132,23 @@ mainScene.update = function() {
     }
     
     // 画像の四角形での位置座標を取り出す
-    var playerRect = this.player.getBounds();
-    var treasure01Rect = this.treasure01.getBounds();
+    
+    
     
     // 四角形の重なりを判定する
-    if(Phaser.Geom.Intersects.RectangleToRectangle(playerRect, treasure01Rect)) {
-        alert("宝箱を見つけました");
-        // 現在のシーンをリスタートする
-        this.scene.restart();
-        return;
-    }
+    
+    
 
     // 画像の中心点の座標を取り出す
-    var playerVector2 = this.player.getCenter();
+    
 
     // 敵との判定
-    var enemies = this.enemies.getChildren();
-    for( var i in enemies ) {
-        var enemy = enemies[i];
-        var enemyVector2 = enemy.getCenter();
-        // 距離が40以下なら接触と判定
-        if(playerVector2.distance(enemyVector2) <= 40) {
-            // enemiyのisHitがfalseならHPを減少させる
-            if( !enemy.isHit ) {
-                this.hp -= 10;
-                this.hpText.setText("HP : " + this.hp);
-                // HPを減少させ続けないための処理
-                enemy.isHit = true;
-            }
-        } else {
-            // 距離が離れたら、isHitをfalse
-            enemy.isHit = false;
-        }
-    }
+    
+    
+    
+    
+    
+    
 };
 
 var config = {

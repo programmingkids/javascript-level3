@@ -20,18 +20,10 @@ mainScene.preload = function () {
 
 mainScene.create = function () {
     // マップ画像の表示
-    var map01Group = this.add.group({
-        key: 'map01',
-        frameQuantity: 192
-    });
-    Phaser.Actions.GridAlign(map01Group.getChildren(), {
-        width: 16,
-        height: 12,
-        cellWidth: 50,
-        cellHeight: 50,
-        x: 25,
-        y: 25
-    });
+    
+    
+    
+    
     
     // スプライト画像の表示
     this.player = this.add.sprite(400, 300, 'player');
@@ -83,27 +75,25 @@ mainScene.update = function() {
         // 右に移動
         this.player.x += speed;
         // 右向きのアニメーション
-        this.player.anims.play('right', true);
+        
     } else if(cursors.left.isDown) {
         // 左に移動
         this.player.x -= speed;
         // 左向きのアニメーション
-        this.player.anims.play('left', true);
+        
     } else if(cursors.up.isDown) {
         // 上に移動
         this.player.y -= speed;
         // 上向きのアニメーション
-        this.player.anims.play('up', true);
+        
     } else if(cursors.down.isDown) {
         // 下に移動
         this.player.y += speed;
         // 下向きのアニメーション
-        this.player.anims.play('down', true);
+        
     } else {
         // キーを放すとアニメーション停止
-        this.player.anims.stop();
-        // キーを放すと正面を向く
-        //this.player.anims.play('turn', true);
+        
     }
 };
 
