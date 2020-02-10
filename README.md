@@ -1,12 +1,12 @@
-# JavaScript レベル3
+# JavaScript レベル4
 ## 対象
-JavaScriptレベル2を修了した方
+JavaScriptレベル3を修了した方
 
 ## 想定学習時間
-20時間程度
+16時間程度
 
 ## 前提
-* JavaScriptレベル2を修了した方
+* JavaScriptレベル3を修了した方
 * JavaScriptの基本的な文法を把握している
 * JavaScriptを利用した簡単なゲームを作成できる
 
@@ -15,3 +15,4 @@ JavaScriptレベル2を修了した方
 * JavaScriptのライブラリを利用する方法を学びます
 * 外部ライブラリを利用したミニゲーム作成を行います
 * 物理エンジンを利用したゲーム作成を行います
+
