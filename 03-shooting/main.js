@@ -8,7 +8,7 @@ mainScene.create = function () {
     this.cameras.main.setBackgroundColor('#99CCFF');
     
     // 背景のタイルスプライトを設定
-    this.background = this.add.tileSprite(0,0, 800, 600, 'background');
+    this.background = this.add.tileSprite(0,0, 800, 600, 'background01');
     this.background.setOrigin(0, 0);
     
     // プレイヤー作成
@@ -42,7 +42,7 @@ mainScene.config = function () {
     // スコア
     this.score = 0;
     // 敵タイプの配列
-    this.enemyType = ["enemy01"];
+    this.enemyType = ["enemy01", "enemy02","enemy03","enemy04","enemy05"];
     // ゲームオーバーフラグ
     this.isGameOver = false;
 };
@@ -152,9 +152,7 @@ mainScene.shoot = function() {
     var posX = this.player.x;
     var posY = this.player.y;
     // ビーム作成
-    var beam = this.beamGroup.create(posX, posY, 'beam');
-    // ビームサイズ変更
-    beam.setDisplaySize(16, 16);
+    var beam = this.beamGroup.create(posX, posY, 'beam01');
     // ビームの速度設定
     beam.setVelocityY(-300);
 };
@@ -198,7 +196,7 @@ mainScene.createUI = function() {
 
 mainScene.createParticle = function() {
     // プレイヤーの爆発パーティクル作成
-    var particles = this.add.particles('fire');
+    var particles = this.add.particles('fire01');
     this.emitter = particles.createEmitter({
         speed: 200,
         maxParticles: 20,
