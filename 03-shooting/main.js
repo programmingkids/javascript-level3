@@ -42,7 +42,7 @@ mainScene.config = function () {
     // スコア
     this.score = 0;
     // 敵タイプの配列
-    this.enemyType = ["enemy01", "enemy02","enemy03","enemy04","enemy05"];
+    this.enemyType = ["enemy01"];
     // ゲームオーバーフラグ
     this.isGameOver = false;
 };
