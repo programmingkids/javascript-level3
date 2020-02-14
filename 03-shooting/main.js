@@ -47,7 +47,7 @@ mainScene.createPlayer = function() {
     // プレイヤーのサイズ変更
     this.player.setDisplaySize(50,50);
     // プレイヤーの最初のフレーム設定
-    this.player.setFrame(0);
+    this.player.setFrame(1);
     // プレイヤーがゲーム空間の領域と衝突
     this.player.setCollideWorldBounds(true);
     
