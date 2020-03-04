@@ -10,7 +10,7 @@ loadScene.preload = function() {
     this.load.tilemapTiledJSON('map01', 'assets/data/map01.json');
     this.load.tilemapTiledJSON('map02', 'assets/data/map02.json');
     // マップスプライト画像
-    this.load.spritesheet('tiles', 'assets/images/tiles.png', {frameWidth: 70, frameHeight: 70});
+    this.load.spritesheet('tiles', 'assets/images/tiles01.png', {frameWidth: 70, frameHeight: 70});
     // プレイヤースプライト画像
     this.load.spritesheet('player', 'assets/images/player1.png', { frameWidth: 32, frameHeight: 32 });
     // スター画像
