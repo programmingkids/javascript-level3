@@ -21,34 +21,41 @@ mainScene.create = function () {
     
     // 敵作成
     this.createEnemyGroup();
+    
+    // ボール作成
+    this.createBallGroup();
+
+    // スペースキーでボール発射
+    this.input.keyboard.on('keydown-SPACE', function(event) {
+        this.shoot();
+    }, this);
 };
 
 mainScene.update = function() {
     if(this.isGameOver) {
         return false;
     }
-    // プレイヤーの操作処理
-    if (this.cursors.left.isDown) {
-        // 左カーソルキーのクリック
+    if (this.cursors.left.isDown)
+    {
         this.player.setVelocityX(-this.runSpeed);
         this.player.anims.play('left', true);
         this.player.direction = 'left';
     }
-    else if (this.cursors.right.isDown) {
-        // 右カーソルキーのクリック
+    else if (this.cursors.right.isDown)
+    {
         this.player.setVelocityX(this.runSpeed);
         this.player.anims.play('right', true);
         this.player.direction = 'right';
     } else {
-        // キーを放したとき
         this.player.setVelocityX(0);
         this.player.anims.stop();
     }
-    // 上カーソルキーをクリックしたときにジャンプ
-    if (this.cursors.up.isDown && this.player.body.onFloor()) {
+    if (this.cursors.up.isDown && this.player.body.onFloor())
+    {
         this.player.setVelocityY(-this.jumpPower);
     }
 };
+
 
 // 初期設定
 mainScene.config = function() {
@@ -128,6 +135,7 @@ mainScene.createPlayer = function() {
     // カメラはプレイヤーを追跡する。プレイヤーの移動に合わせて、カメラが表示が移動する
     this.cameras.main.startFollow(this.player);
 };
+
 
 mainScene.createUI = function() {
     // UI作成
@@ -209,15 +217,14 @@ mainScene.createEnemy = function() {
     var enemyPositionX = Phaser.Math.RND.between(200, 1200);
     // 敵作成
     var enemy = this.enemyGroup.create(enemyPositionX, 70, enemyType);
-    // 敵のサイズ変更
     enemy.body.setSize(350,350);
     enemy.setDisplaySize(70, 70);
-    // 敵の移動速度をランダムに設定する
+    // 敵の移動速度をランダムに決定する
     var speed = Phaser.Math.RND.pick(this.enemySpeed);
     enemy.setVelocityX(speed);
 };
 
-mainScene.hitEnemy = function(enemy, player) {
+mainScene.hitEnemy = function(player, enemy) {
     // プレイヤーと敵の衝突
     // 物理エンジン停止
     this.physics.pause();
@@ -252,4 +259,41 @@ mainScene.gameOver = function() {
     this.input.keyboard.on('keydown', function(event) {
         this.scene.start('mainScene');
     }, this);
+};
+
+mainScene.createBallGroup = function() {
+    // ボールグループ作成
+    this.ballGroup = this.physics.add.group();
+    // ボールグループと地面の衝突
+    this.physics.add.collider(this.ballGroup, this.groundLayer);    
+    // ボールグループと敵の衝突
+    this.physics.add.overlap(this.ballGroup, this.enemyGroup, this.hitBall, null, this);
+};
+
+mainScene.shoot = function() {
+    // プレイヤーの位置からボール発射
+    var posX = this.player.x;
+    var posY = this.player.y;
+    // ボール作成
+    var ball = this.ballGroup.create(posX, posY, 'ball01');
+    ball.setDisplaySize(20, 20);
+    ball.setBounce(1);
+    // プレイヤーの向きにボールを発射
+    if( this.player.direction == 'right') {
+        ball.setVelocityX(600);
+    } else {
+        ball.setVelocityX(-600);
+    }
+};
+
+mainScene.hitBall = function(ball, enemy) {
+    // ボールと敵の衝突
+    // 敵の削除
+    enemy.destroy();
+    // ボールの削除
+    ball.destroy();
+    // スコアアップ
+    this.score += 1;
+    var scoreText = 'スコア：' + this.score;
+    this.text.setText(scoreText);
 };

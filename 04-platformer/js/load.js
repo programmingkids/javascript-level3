@@ -21,6 +21,12 @@ loadScene.preload = function() {
     this.load.image('enemy05', 'assets/images/enemy05.png');
     this.load.image('enemy07', 'assets/images/enemy07.png');
     this.load.image('enemy08', 'assets/images/enemy08.png');
+    // ボール画像
+    this.load.image('ball01', 'assets/images/ball01.png');
+    this.load.image('ball02', 'assets/images/ball02.png');
+    this.load.image('ball03', 'assets/images/ball03.png');
+    this.load.image('ball04', 'assets/images/ball04.png');
+    this.load.image('ball05', 'assets/images/ball05.png');
 };
 
 loadScene.create = function() {
