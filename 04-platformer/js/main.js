@@ -27,25 +27,28 @@ mainScene.update = function() {
     if(this.isGameOver) {
         return false;
     }
-    if (this.cursors.left.isDown)
-    {
-        this.player.body.setVelocityX(-this.runSpeed);
+    // プレイヤーの操作処理
+    if (this.cursors.left.isDown) {
+        // 左カーソルキーのクリック
+        this.player.setVelocityX(-this.runSpeed);
         this.player.anims.play('left', true);
+        this.player.direction = 'left';
     }
-    else if (this.cursors.right.isDown)
-    {
-        this.player.body.setVelocityX(this.runSpeed);
+    else if (this.cursors.right.isDown) {
+        // 右カーソルキーのクリック
+        this.player.setVelocityX(this.runSpeed);
         this.player.anims.play('right', true);
+        this.player.direction = 'right';
     } else {
-        this.player.body.setVelocityX(0);
+        // キーを放したとき
+        this.player.setVelocityX(0);
         this.player.anims.stop();
     }
-    if (this.cursors.space.isDown && this.player.body.onFloor())
-    {
-        this.player.body.setVelocityY(-this.jumpPower);
+    // 上カーソルキーをクリックしたときにジャンプ
+    if (this.cursors.up.isDown && this.player.body.onFloor()) {
+        this.player.setVelocityY(-this.jumpPower);
     }
 };
-
 
 // 初期設定
 mainScene.config = function() {
@@ -97,6 +100,9 @@ mainScene.createPlayer = function() {
     this.player.body.setSize(20,25);
     // プレイヤーのサイズ変更
     this.player.setDisplaySize(70,70);
+    // プレイヤーの最初の向きは右
+    this.player.setFrame(7);
+    this.player.direction = 'right';
     // プレイヤーの衝突時のバウンス設定
     this.player.setBounce(0);
     // プレイヤーがゲームワールドの外に出ないように衝突させる
@@ -122,7 +128,6 @@ mainScene.createPlayer = function() {
     // カメラはプレイヤーを追跡する。プレイヤーの移動に合わせて、カメラが表示が移動する
     this.cameras.main.startFollow(this.player);
 };
-
 
 mainScene.createUI = function() {
     // UI作成
@@ -180,13 +185,13 @@ mainScene.hitStar = function(player, star) {
 
 mainScene.createEnemyGroup = function() {
     // 敵グループ作成
-    this.enemies = this.physics.add.group();
+    this.enemyGroup = this.physics.add.group();
     // 最初の敵の作成
     this.createEnemy();
     // 敵は地面と衝突する
-    this.physics.add.collider(this.enemies, this.groundLayer);
+    this.physics.add.collider(this.enemyGroup, this.groundLayer);
     // 敵はプレイヤーと衝突する
-    this.physics.add.overlap(this.enemies, this.player, this.hitEnemy, null, this);
+    this.physics.add.overlap(this.enemyGroup, this.player, this.hitEnemy, null, this);
     // 2秒ごとに、新しい敵を作成する
     this.enemyTimer = this.timeEvent = this.time.addEvent({
       delay: 2000,
@@ -203,15 +208,16 @@ mainScene.createEnemy = function() {
     // 敵の初期位置をランダムにする
     var enemyPositionX = Phaser.Math.RND.between(200, 1200);
     // 敵作成
-    var enemy = this.enemies.create(enemyPositionX, 70, enemyType);
+    var enemy = this.enemyGroup.create(enemyPositionX, 70, enemyType);
+    // 敵のサイズ変更
     enemy.body.setSize(350,350);
     enemy.setDisplaySize(70, 70);
-    // 敵の移動速度をランダムに決定する
+    // 敵の移動速度をランダムに設定する
     var speed = Phaser.Math.RND.pick(this.enemySpeed);
     enemy.setVelocityX(speed);
 };
 
-mainScene.hitEnemy = function(player, enemy) {
+mainScene.hitEnemy = function(enemy, player) {
     // プレイヤーと敵の衝突
     // 物理エンジン停止
     this.physics.pause();
