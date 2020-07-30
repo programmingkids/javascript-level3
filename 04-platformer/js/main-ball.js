@@ -158,7 +158,7 @@ mainScene.createStarGroup = function() {
     // スター作成
     this.createStar();
     // 3秒ごとにスターを作成
-    this.starTimer = this.timeEvent = this.time.addEvent({
+    this.starTimer = this.time.addEvent({
       delay: 3000,
       callback: this.createStar,
       loop: true,
@@ -201,7 +201,7 @@ mainScene.createEnemyGroup = function() {
     // 敵はプレイヤーと衝突する
     this.physics.add.overlap(this.enemyGroup, this.player, this.hitEnemy, null, this);
     // 2秒ごとに、新しい敵を作成する
-    this.enemyTimer = this.timeEvent = this.time.addEvent({
+    this.enemyTimer = this.time.addEvent({
       delay: 2000,
       callback: this.createEnemy,
       loop: true,
